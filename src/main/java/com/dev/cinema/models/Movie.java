@@ -7,19 +7,23 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @Entity
 @Table(name = "movies")
 public class Movie {
     @Id
     @Column(name = "movie_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private Long id;
+    private Long id;
     private String title;
     private String description;
+
+    public Movie() {
+        this.description = "No description provided";
+        this.title = "No title provided";
+        this.id = -1L;
+    }
 
     public Long getId() {
         return id;
