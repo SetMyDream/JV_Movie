@@ -21,7 +21,8 @@ public interface GenericDao<T> {
             if (transaction != null) {
                 transaction.rollback();
             }
-            throw new DataProcessingException("Can't insert Movie to DB", e);
+            throw new DataProcessingException("Can't insert "
+                    + entity.getClass().getSimpleName() + " to DB", e);
         } finally {
             if (session != null) {
                 session.close();
