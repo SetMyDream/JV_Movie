@@ -15,7 +15,7 @@ public class MovieSessionDaoImpl implements MovieSessionDao {
     public List<MovieSession> getAll() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             Query<MovieSession> getAllCinemaHallsQuery
-                    = session.createQuery("FROM movie_session", MovieSession.class);
+                    = session.createQuery("FROM MovieSession", MovieSession.class);
             return getAllCinemaHallsQuery.getResultList();
         } catch (Exception e) {
             throw new DataProcessingException("Oops. An error has occurred "
