@@ -9,6 +9,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Data
 @NoArgsConstructor
@@ -19,8 +21,10 @@ public class MovieSession {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
+    @Fetch(FetchMode.JOIN)
     private Movie movie;
     @ManyToOne
+    @Fetch(FetchMode.JOIN)
     private CinemaHall cinemaHall;
     private LocalDateTime showTime;
 
