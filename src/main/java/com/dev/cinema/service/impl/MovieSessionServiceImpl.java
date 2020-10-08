@@ -8,7 +8,6 @@ import com.dev.cinema.service.MovieSessionService;
 import java.time.LocalDate;
 import java.util.List;
 
-
 @Service
 public class MovieSessionServiceImpl implements MovieSessionService {
     @Inject

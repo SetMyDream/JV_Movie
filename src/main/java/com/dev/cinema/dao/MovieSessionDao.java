@@ -1,7 +1,6 @@
 package com.dev.cinema.dao;
 
 import com.dev.cinema.models.MovieSession;
-
 import java.time.LocalDate;
 import java.util.List;
 

@@ -5,14 +5,14 @@ import com.dev.cinema.exceptions.DataProcessingException;
 import com.dev.cinema.lib.Dao;
 import com.dev.cinema.models.MovieSession;
 import com.dev.cinema.util.HibernateUtil;
-import org.hibernate.Session;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.List;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.List;
+import org.hibernate.Session;
 
 @Dao
 public class MovieSessionDaoImpl implements MovieSessionDao {
