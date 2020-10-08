@@ -1,7 +1,6 @@
 package com.dev.cinema.service.impl;
 
 import com.dev.cinema.dao.UserDao;
-import com.dev.cinema.exceptions.AuthenticationException;
 import com.dev.cinema.lib.Inject;
 import com.dev.cinema.lib.Service;
 import com.dev.cinema.models.User;
@@ -15,14 +14,14 @@ public class UserServiceImpl implements UserService {
     private UserDao userDao;
 
     @Override
-    public User add(User user) throws AuthenticationException {
+    public User add(User user) {
         user.setSalt(HashUtil.getSalt());
         user.setPassword(HashUtil.hashPassword(user.getPassword(), user.getSalt()));
         return userDao.add(user);
     }
 
     @Override
-    public Optional<User> findByEmail(String email) throws AuthenticationException {
+    public Optional<User> findByEmail(String email) {
         return userDao.findByEmail(email);
     }
 }

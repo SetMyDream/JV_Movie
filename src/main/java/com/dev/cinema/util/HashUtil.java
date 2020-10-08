@@ -1,11 +1,12 @@
 package com.dev.cinema.util;
 
-import com.dev.cinema.exceptions.AuthenticationException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
 public class HashUtil {
+    private static final String ALGORITHM = "SHA-512";
+
     public static byte[] getSalt() {
         SecureRandom random = new SecureRandom();
         byte[] salt = new byte[16];
@@ -13,10 +14,10 @@ public class HashUtil {
         return salt;
     }
 
-    public static String hashPassword(String password, byte[] salt) throws AuthenticationException {
+    public static String hashPassword(String password, byte[] salt) {
         StringBuilder hashedPassword = new StringBuilder();
         try {
-            MessageDigest messageDigest = MessageDigest.getInstance("SHA-512");
+            MessageDigest messageDigest = MessageDigest.getInstance(ALGORITHM);
             messageDigest.update(salt);
             byte[] hashedPass = messageDigest.digest(password.getBytes());
             for (byte b: hashedPass) {
