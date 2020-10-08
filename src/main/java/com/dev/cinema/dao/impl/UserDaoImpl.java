@@ -16,7 +16,7 @@ import org.hibernate.Session;
 @Dao
 public class UserDaoImpl implements UserDao {
     @Override
-    public List getAll() {
+    public List<User> getAll() {
         return getAll(User.class);
     }
 
