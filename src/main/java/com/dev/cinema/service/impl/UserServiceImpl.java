@@ -7,7 +7,6 @@ import com.dev.cinema.lib.Service;
 import com.dev.cinema.models.User;
 import com.dev.cinema.service.UserService;
 import com.dev.cinema.util.HashUtil;
-
 import java.util.Optional;
 
 @Service

@@ -5,14 +5,13 @@ import com.dev.cinema.exceptions.AuthenticationException;
 import com.dev.cinema.lib.Dao;
 import com.dev.cinema.models.User;
 import com.dev.cinema.util.HibernateUtil;
-import org.hibernate.Session;
-
+import java.util.List;
+import java.util.Optional;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import java.util.List;
-import java.util.Optional;
+import org.hibernate.Session;
 
 @Dao
 public class UserDaoImpl implements UserDao {
