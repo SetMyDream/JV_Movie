@@ -14,12 +14,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Inject
     private UserService userService;
 
-    /**
-     * We should register a new user. New user entity will contains the email and password
-     * @param email - user email. should be unique for each user
-     * @param password - user password
-     * @return new user instance
-     */
     @Override
     public User login(String email, String password) throws AuthenticationException {
         Optional<User> userOptional = Optional.ofNullable(userService.findByEmail(email));
