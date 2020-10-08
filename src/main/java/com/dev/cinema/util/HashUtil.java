@@ -3,7 +3,6 @@ package com.dev.cinema.util;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-
 import org.apache.log4j.Logger;
 
 public class HashUtil {
@@ -22,7 +21,7 @@ public class HashUtil {
             MessageDigest messageDigest = MessageDigest.getInstance("SHA-512");
             messageDigest.update(salt);
             byte[] hashedPass = messageDigest.digest(password.getBytes());
-            for(byte b: hashedPass) {
+            for (byte b: hashedPass) {
                 hashedPassword.append(String.format("%02x",b));
             }
         } catch (NoSuchAlgorithmException e) {

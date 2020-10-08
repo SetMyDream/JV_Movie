@@ -1,4 +1,6 @@
 package com.dev.cinema.dao;
 
-public interface UserDao extends GenericDao {
+import com.dev.cinema.models.User;
+
+public interface UserDao extends GenericDao<User> {
 }
