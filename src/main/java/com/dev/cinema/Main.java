@@ -4,9 +4,12 @@ import com.dev.cinema.lib.Injector;
 import com.dev.cinema.models.CinemaHall;
 import com.dev.cinema.models.Movie;
 import com.dev.cinema.models.MovieSession;
+import com.dev.cinema.models.User;
+import com.dev.cinema.service.AuthenticationService;
 import com.dev.cinema.service.CinemaHallService;
 import com.dev.cinema.service.MovieService;
 import com.dev.cinema.service.MovieSessionService;
+import com.dev.cinema.service.UserService;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -66,5 +69,19 @@ public class Main {
                 .forEach(System.out::println);
 
         movieService.getAll().forEach(System.out::println);
+
+        UserService userService = (UserService) injector.getInstance(UserService.class);
+        User den = new User();
+        den.setEmail("den@somemail.com");
+        den.setPassword("dent");
+        userService.add(den);
+        AuthenticationService authenticationService =
+                (AuthenticationService) injector.getInstance(AuthenticationService.class);
+        User johny = new User();
+        johny.setEmail("johnydepp@amail.com");
+        johny.setPassword("CaptainJackSparrow");
+        authenticationService.register(johny.getEmail(), johny.getPassword());
+        authenticationService.login(johny.getEmail(), johny.getPassword());
+        System.out.println(userService.findByEmail(johny.getEmail()));
     }
 }
