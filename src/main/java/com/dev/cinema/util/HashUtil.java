@@ -26,6 +26,7 @@ public class HashUtil {
             }
         } catch (NoSuchAlgorithmException e) {
             logger.error(e);
+            throw new AuthenticationException("Can`t hash user password", e);
         }
         return hashedPassword.toString();
     }
