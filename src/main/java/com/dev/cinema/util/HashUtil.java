@@ -1,5 +1,6 @@
 package com.dev.cinema.util;
 
+import com.dev.cinema.exceptions.AuthenticationException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
