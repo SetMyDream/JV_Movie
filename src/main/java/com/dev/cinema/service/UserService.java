@@ -1,9 +1,12 @@
 package com.dev.cinema.service;
 
+import com.dev.cinema.exceptions.AuthenticationException;
 import com.dev.cinema.models.User;
 
-public interface UserService {
-    User add(User user);
+import java.util.Optional;
 
-    User findByEmail(String email);
+public interface UserService {
+    User add(User user) throws AuthenticationException;
+
+    Optional<User> findByEmail(String email) throws AuthenticationException;
 }
