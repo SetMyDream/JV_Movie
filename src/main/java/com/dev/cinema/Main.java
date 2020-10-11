@@ -5,11 +5,13 @@ import com.dev.cinema.lib.Injector;
 import com.dev.cinema.models.CinemaHall;
 import com.dev.cinema.models.Movie;
 import com.dev.cinema.models.MovieSession;
+import com.dev.cinema.models.ShoppingCart;
 import com.dev.cinema.models.User;
 import com.dev.cinema.service.AuthenticationService;
 import com.dev.cinema.service.CinemaHallService;
 import com.dev.cinema.service.MovieService;
 import com.dev.cinema.service.MovieSessionService;
+import com.dev.cinema.service.ShoppingCartService;
 import com.dev.cinema.service.UserService;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -84,5 +86,15 @@ public class Main {
         authenticationService.register(johny.getEmail(), johny.getPassword());
         authenticationService.login(johny.getEmail(), johny.getPassword());
         System.out.println(userService.findByEmail(johny.getEmail()).get());
+
+        ShoppingCartService cartService = (ShoppingCartService) injector
+                .getInstance(ShoppingCartService.class);
+        cartService.addSession(bobroPozhalovatSession, den);
+        cartService.addSession(groundHogDayManSession, johny);
+        System.out.println("Den's shopping cart :" + cartService.getByUser(den).toString());
+        System.out.println("Johny's shopping cart :" + cartService.getByUser(johny).toString());
+        ShoppingCart johnyShoppingCart = cartService.getByUser(johny);
+        cartService.clear(johnyShoppingCart);
+        System.out.println("Roman's shoppingCart :" + cartService.getByUser(johny));
     }
 }
