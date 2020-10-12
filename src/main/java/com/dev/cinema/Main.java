@@ -20,10 +20,10 @@ public class Main {
     private static Injector injector = Injector.getInstance("com.dev.cinema");
 
     public static void main(String[] args) throws AuthenticationException {
-        Movie movie = new Movie();
-        movie.setTitle("Fast and Furious");
+        Movie fastAndFurious = new Movie();
+        fastAndFurious.setTitle("Fast and Furious");
         MovieService movieService = (MovieService) injector.getInstance(MovieService.class);
-        movieService.add(movie);
+        movieService.add(fastAndFurious);
 
         Movie groundhogDay = new Movie();
         groundhogDay.setTitle("Groundhog Day");
@@ -58,11 +58,11 @@ public class Main {
         groundHogDayManSession.setShowTime(LocalDateTime.now().plusMonths(3));
         movieSessionService.add(groundHogDayManSession);
 
-        MovieSession bobroPozhalovatSession = new MovieSession();
-        bobroPozhalovatSession.setCinemaHall(blueHall);
-        bobroPozhalovatSession.setMovie(bobroPozhalovat);
-        bobroPozhalovatSession.setShowTime(LocalDateTime.now().plusMonths(2));
-        movieSessionService.add(bobroPozhalovatSession);
+        MovieSession fastSession = new MovieSession();
+        fastSession.setCinemaHall(blueHall);
+        fastSession.setMovie(fastAndFurious);
+        fastSession.setShowTime(LocalDateTime.now().plusMonths(2));
+        movieSessionService.add(fastSession);
 
         movieSessionService.findAvailableSessions(gift.getId(), LocalDate.now())
                 .forEach(System.out::println);
@@ -90,7 +90,7 @@ public class Main {
 
         ShoppingCartService cartService = (ShoppingCartService) injector
                 .getInstance(ShoppingCartService.class);
-        cartService.addSession(g, den);
+        cartService.addSession(fastSession, den);
         cartService.addSession(groundHogDayManSession, johny);
         System.out.println("Den's shopping cart :" + cartService.getByUser(den).toString());
         System.out.println("Johny's shopping cart :" + cartService.getByUser(johny).toString());
