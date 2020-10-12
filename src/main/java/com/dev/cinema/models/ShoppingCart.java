@@ -21,7 +21,7 @@ public class ShoppingCart {
     private Long id;
     @OneToOne
     @MapsId
-    @JoinColumn(name = "shopping_cart_id")
+    @JoinColumn(name = "id")
     private User user;
     @OneToMany
     @JoinTable(name = "shopping_cart_tickets",

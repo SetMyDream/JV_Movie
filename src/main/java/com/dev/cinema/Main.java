@@ -78,6 +78,7 @@ public class Main {
         den.setEmail("den@somemail.com");
         den.setPassword("dent");
         userService.add(den);
+
         AuthenticationService authenticationService =
                 (AuthenticationService) injector.getInstance(AuthenticationService.class);
         User johny = new User();
@@ -89,7 +90,7 @@ public class Main {
 
         ShoppingCartService cartService = (ShoppingCartService) injector
                 .getInstance(ShoppingCartService.class);
-        cartService.addSession(bobroPozhalovatSession, den);
+        cartService.addSession(g, den);
         cartService.addSession(groundHogDayManSession, johny);
         System.out.println("Den's shopping cart :" + cartService.getByUser(den).toString());
         System.out.println("Johny's shopping cart :" + cartService.getByUser(johny).toString());
