@@ -90,10 +90,11 @@ public class Main {
 
         ShoppingCartService cartService = (ShoppingCartService) injector
                 .getInstance(ShoppingCartService.class);
+        cartService.addSession(giftManSession, johny);
         cartService.addSession(fastSession, den);
         cartService.addSession(groundHogDayManSession, johny);
-        System.out.println("Den's shopping cart :" + cartService.getByUser(den).toString());
         System.out.println("Johny's shopping cart :" + cartService.getByUser(johny).toString());
+        System.out.println("Den's shopping cart :" + cartService.getByUser(den).toString());
         ShoppingCart johnyShoppingCart = cartService.getByUser(johny);
         cartService.clear(johnyShoppingCart);
         System.out.println("Roman's shoppingCart :" + cartService.getByUser(johny));
