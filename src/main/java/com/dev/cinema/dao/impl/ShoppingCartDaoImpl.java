@@ -6,28 +6,24 @@ import com.dev.cinema.lib.Dao;
 import com.dev.cinema.models.ShoppingCart;
 import com.dev.cinema.models.User;
 import com.dev.cinema.util.HibernateUtil;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 @Dao
 public class ShoppingCartDaoImpl implements ShoppingCartDao {
     @Override
     public ShoppingCart getByUser(User user) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
-            CriteriaQuery<ShoppingCart> cartCriteriaQuery
-                    = criteriaBuilder.createQuery(ShoppingCart.class);
-            Root<ShoppingCart> root = cartCriteriaQuery.from(ShoppingCart.class);
-            Predicate userIdPredicate = criteriaBuilder.equal(root.get("user"), user);
-            cartCriteriaQuery.select(root).where(userIdPredicate);
-            return session.createQuery(cartCriteriaQuery).uniqueResult();
+            Query<ShoppingCart> query = session.createQuery("FROM ShoppingCart sc"
+                    + " join fetch sc.user"
+                    + " left join fetch sc.tickets"
+                    + " WHERE sc.user.id = :id", ShoppingCart.class);
+            ((Query<?>) query).setParameter("id", user.getId());
+            return query.getSingleResult();
         } catch (Exception e) {
-            throw new DataProcessingException("Can`t find shopping cart by user "
-                    + user.getEmail(), e);
+            throw new DataProcessingException("Can't get Shopping Cart with User  "
+                    + user + "from DB", e);
         }
     }
 
