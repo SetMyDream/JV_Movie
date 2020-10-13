@@ -7,8 +7,13 @@ import com.dev.cinema.models.Movie;
 import com.dev.cinema.models.MovieSession;
 import com.dev.cinema.models.ShoppingCart;
 import com.dev.cinema.models.User;
-import com.dev.cinema.service.*;
-
+import com.dev.cinema.service.AuthenticationService;
+import com.dev.cinema.service.CinemaHallService;
+import com.dev.cinema.service.MovieService;
+import com.dev.cinema.service.MovieSessionService;
+import com.dev.cinema.service.OrderService;
+import com.dev.cinema.service.ShoppingCartService;
+import com.dev.cinema.service.UserService;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -32,13 +37,12 @@ public class Main {
         cinemaHallService.add(blueHall);
         cinemaHallService.getAll().forEach(System.out::println);
 
-        MovieSessionService movieSessionService =
-                (MovieSessionService) injector.getInstance(MovieSessionService.class);
-
         MovieSession groundHogDayManSession = new MovieSession();
         groundHogDayManSession.setCinemaHall(blueHall);
         groundHogDayManSession.setMovie(groundhogDay);
         groundHogDayManSession.setShowTime(LocalDateTime.now().plusMonths(3));
+        MovieSessionService movieSessionService =
+                (MovieSessionService) injector.getInstance(MovieSessionService.class);
         movieSessionService.add(groundHogDayManSession);
 
         MovieSession fastSession = new MovieSession();
@@ -54,8 +58,6 @@ public class Main {
 
         movieService.getAll().forEach(System.out::println);
 
-        UserService userService = (UserService) injector.getInstance(UserService.class);
-
         AuthenticationService authenticationService =
                 (AuthenticationService) injector.getInstance(AuthenticationService.class);
         User johny = new User();
@@ -63,6 +65,7 @@ public class Main {
         johny.setPassword("CaptainJackSparrow");
         authenticationService.register(johny.getEmail(), johny.getPassword());
         johny = authenticationService.login(johny.getEmail(), johny.getPassword());
+        UserService userService = (UserService) injector.getInstance(UserService.class);
         System.out.println(userService.findByEmail(johny.getEmail()).get());
 
         User den = new User();
