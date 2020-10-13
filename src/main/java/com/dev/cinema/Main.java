@@ -82,15 +82,16 @@ public class Main {
         cartService.addSession(fastSession, den);
         cartService.addSession(groundHogDayManSession, johny);
 
-        System.out.println("Johny's shopping cart :" + cartService.getByUser(johny).toString());
-        System.out.println("Den's shopping cart :" + cartService.getByUser(den).toString());
+        System.out.println("Johny's shopping cart :" + cartService.getByUser(johny));
+        System.out.println("Den's shopping cart :" + cartService.getByUser(den));
         ShoppingCart johnyShoppingCart = cartService.getByUser(johny);
         cartService.clear(johnyShoppingCart);
         System.out.println("Johny's shoppingCart :" + cartService.getByUser(johny));
 
         OrderService orderService = (OrderService) injector
                 .getInstance(OrderService.class);
-        orderService.completeOrder(johnyShoppingCart.getTickets(), johnyShoppingCart.getUser());
-        System.out.println(orderService.getOrderHistory(johnyShoppingCart.getUser()));
+        ShoppingCart denShoppingCart = cartService.getByUser(den);
+        orderService.completeOrder(denShoppingCart.getTickets(), denShoppingCart.getUser());
+        System.out.println(orderService.getOrderHistory(denShoppingCart.getUser()));
     }
 }
