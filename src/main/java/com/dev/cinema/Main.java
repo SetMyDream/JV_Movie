@@ -14,17 +14,22 @@ import com.dev.cinema.service.MovieSessionService;
 import com.dev.cinema.service.OrderService;
 import com.dev.cinema.service.ShoppingCartService;
 import com.dev.cinema.service.UserService;
+import org.apache.log4j.Logger;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Main {
     private static Injector injector = Injector.getInstance("com.dev.cinema");
 
+    final static Logger log = Logger.getLogger(Main.class);
+
     public static void main(String[] args) throws AuthenticationException {
+
         Movie fastAndFurious = new Movie();
         fastAndFurious.setTitle("Fast and Furious");
         MovieService movieService = (MovieService) injector.getInstance(MovieService.class);
         movieService.add(fastAndFurious);
+
 
         Movie groundhogDay = new Movie();
         groundhogDay.setTitle("Groundhog Day");
@@ -35,7 +40,7 @@ public class Main {
         CinemaHall blueHall = new CinemaHall();
         blueHall.setCapacity(100);
         cinemaHallService.add(blueHall);
-        cinemaHallService.getAll().forEach(System.out::println);
+        cinemaHallService.getAll().forEach(log::info);
 
         MovieSession groundHogDayManSession = new MovieSession();
         groundHogDayManSession.setCinemaHall(blueHall);
@@ -52,11 +57,11 @@ public class Main {
         movieSessionService.add(fastSession);
 
         movieSessionService.findAvailableSessions(groundhogDay.getId(),LocalDate.now())
-                .forEach(System.out::println);
+                .forEach(log::info);
         movieSessionService.findAvailableSessions(fastAndFurious.getId(),LocalDate.now())
-                .forEach(System.out::println);
+                .forEach(log::info);
 
-        movieService.getAll().forEach(System.out::println);
+        movieService.getAll().forEach(log::info);
 
         AuthenticationService authenticationService =
                 (AuthenticationService) injector.getInstance(AuthenticationService.class);
@@ -66,32 +71,32 @@ public class Main {
         authenticationService.register(johny.getEmail(), johny.getPassword());
         johny = authenticationService.login(johny.getEmail(), johny.getPassword());
         UserService userService = (UserService) injector.getInstance(UserService.class);
-        System.out.println(userService.findByEmail(johny.getEmail()).get());
+        log.info(userService.findByEmail(johny.getEmail()).get());
 
         User den = new User();
         den.setEmail("den@somemail.com");
         den.setPassword("dent");
         authenticationService.register(den.getEmail(), den.getPassword());
         den = authenticationService.login(den.getEmail(), den.getPassword());
-        System.out.println(userService.findByEmail(johny.getEmail()).get());
+        log.info(userService.findByEmail(johny.getEmail()).get());
 
         ShoppingCartService cartService = (ShoppingCartService) injector
                 .getInstance(ShoppingCartService.class);
-        System.out.println(cartService.getByUser(johny));
+        log.info(cartService.getByUser(johny));
 
         cartService.addSession(fastSession, den);
         cartService.addSession(groundHogDayManSession, johny);
 
-        System.out.println("Johny's shopping cart :" + cartService.getByUser(johny));
-        System.out.println("Den's shopping cart :" + cartService.getByUser(den));
+        log.info("Johny's shopping cart :" + cartService.getByUser(johny));
+        log.info("Den's shopping cart :" + cartService.getByUser(den));
         ShoppingCart johnyShoppingCart = cartService.getByUser(johny);
         cartService.clear(johnyShoppingCart);
-        System.out.println("Johny's shoppingCart :" + cartService.getByUser(johny));
+        log.info("Johny's shoppingCart :" + cartService.getByUser(johny));
 
         OrderService orderService = (OrderService) injector
                 .getInstance(OrderService.class);
         ShoppingCart denShoppingCart = cartService.getByUser(den);
         orderService.completeOrder(denShoppingCart.getTickets(), denShoppingCart.getUser());
-        System.out.println(orderService.getOrderHistory(denShoppingCart.getUser()));
+        log.info(orderService.getOrderHistory(denShoppingCart.getUser()));
     }
 }
