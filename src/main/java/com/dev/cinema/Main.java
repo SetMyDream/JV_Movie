@@ -14,14 +14,14 @@ import com.dev.cinema.service.MovieSessionService;
 import com.dev.cinema.service.OrderService;
 import com.dev.cinema.service.ShoppingCartService;
 import com.dev.cinema.service.UserService;
-import org.apache.log4j.Logger;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import org.apache.log4j.Logger;
 
 public class Main {
     private static Injector injector = Injector.getInstance("com.dev.cinema");
 
-    final static Logger log = Logger.getLogger(Main.class);
+    private static final Logger log = Logger.getLogger(Main.class);
 
     public static void main(String[] args) throws AuthenticationException {
 
@@ -29,7 +29,6 @@ public class Main {
         fastAndFurious.setTitle("Fast and Furious");
         MovieService movieService = (MovieService) injector.getInstance(MovieService.class);
         movieService.add(fastAndFurious);
-
 
         Movie groundhogDay = new Movie();
         groundhogDay.setTitle("Groundhog Day");
