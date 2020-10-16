@@ -3,11 +3,14 @@ package com.dev.cinema.dao;
 import com.dev.cinema.exceptions.DataProcessingException;
 import com.dev.cinema.util.HibernateUtil;
 import java.util.List;
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
 public interface GenericDao<T> {
+    Logger logger = Logger.getLogger(GenericDao.class);
+
     default T add(T entity) {
         Transaction transaction = null;
         Session session = null;
@@ -16,6 +19,7 @@ public interface GenericDao<T> {
             transaction = session.beginTransaction();
             session.save(entity);
             transaction.commit();
+            logger.info("Entity " + entity + "added into the database");
             return entity;
         } catch (Exception e) {
             if (transaction != null) {
