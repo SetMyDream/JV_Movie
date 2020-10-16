@@ -18,7 +18,7 @@ import org.hibernate.Session;
 public class MovieSessionDaoImpl implements MovieSessionDao {
     @Override
     public List<MovieSession> getAll() {
-        return MovieSessionDao.super.getAll(MovieSession.class);
+        return getAll(MovieSession.class);
     }
 
     @Override
