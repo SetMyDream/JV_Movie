@@ -20,7 +20,6 @@ import org.apache.log4j.Logger;
 
 public class Main {
     private static Injector injector = Injector.getInstance("com.dev.cinema");
-
     private static final Logger log = Logger.getLogger(Main.class);
 
     public static void main(String[] args) throws AuthenticationException {
@@ -68,7 +67,11 @@ public class Main {
         johny.setEmail("johnydepp@amail.com");
         johny.setPassword("CaptainJackSparrow");
         authenticationService.register(johny.getEmail(), johny.getPassword());
-        johny = authenticationService.login(johny.getEmail(), johny.getPassword());
+        try {
+            johny = authenticationService.login(johny.getEmail(), johny.getPassword());
+        } catch (AuthenticationException ex) {
+            log.warn("Oop`s, can`t login", ex);
+        }
         UserService userService = (UserService) injector.getInstance(UserService.class);
         log.info(userService.findByEmail(johny.getEmail()).get());
 
@@ -76,7 +79,11 @@ public class Main {
         den.setEmail("den@somemail.com");
         den.setPassword("dent");
         authenticationService.register(den.getEmail(), den.getPassword());
-        den = authenticationService.login(den.getEmail(), den.getPassword());
+        try {
+            den = authenticationService.login(den.getEmail(), den.getPassword());
+        } catch (AuthenticationException ex) {
+            log.warn("Oop`s, can`t login", ex);
+        }
         log.info(userService.findByEmail(johny.getEmail()).get());
 
         ShoppingCartService cartService = (ShoppingCartService) injector

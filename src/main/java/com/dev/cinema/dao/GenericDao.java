@@ -9,9 +9,7 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
 public interface GenericDao<T> {
-
-    Logger logger = Logger.getLogger(GenericDao.class);
-
+    public static final Logger logger = Logger.getLogger(GenericDao.class);
     default T add(T entity) {
         Transaction transaction = null;
         Session session = null;
