@@ -1,9 +1,8 @@
 package com.dev.cinema.config;
 
+import com.dev.cinema.models.User;
 import java.util.Properties;
 import javax.sql.DataSource;
-
-import com.dev.cinema.models.User;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;

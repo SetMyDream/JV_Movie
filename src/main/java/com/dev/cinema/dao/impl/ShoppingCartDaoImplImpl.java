@@ -12,7 +12,8 @@ import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class ShoppingCartDaoImplImpl extends GenericDaoImpl<ShoppingCart> implements ShoppingCartDao {
+public class ShoppingCartDaoImplImpl extends GenericDaoImpl<ShoppingCart>
+        implements ShoppingCartDao {
     protected final SessionFactory sessionFactory;
 
     public ShoppingCartDaoImplImpl(SessionFactory sessionFactory, SessionFactory sessionFactory1) {
