@@ -9,12 +9,10 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
-import org.springframework.stereotype.Repository;
 
-@Repository
 public abstract class GenericDaoImpl<T> implements GenericDao<T> {
     public static final Logger logger = Logger.getLogger(GenericDaoImpl.class);
-    SessionFactory sessionFactory;
+    public SessionFactory sessionFactory;
 
     public GenericDaoImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
