@@ -1,7 +1,7 @@
 package com.dev.cinema;
 
+import com.dev.cinema.config.AppConfig;
 import com.dev.cinema.exceptions.AuthenticationException;
-import com.dev.cinema.lib.Injector;
 import com.dev.cinema.models.CinemaHall;
 import com.dev.cinema.models.Movie;
 import com.dev.cinema.models.MovieSession;
@@ -17,24 +17,26 @@ import com.dev.cinema.service.UserService;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import org.apache.log4j.Logger;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class Main {
-    private static Injector injector = Injector.getInstance("com.dev.cinema");
     private static final Logger log = Logger.getLogger(Main.class);
+    private static final ApplicationContext context
+            = new AnnotationConfigApplicationContext(AppConfig.class);
 
     public static void main(String[] args) throws AuthenticationException {
 
         Movie fastAndFurious = new Movie();
         fastAndFurious.setTitle("Fast and Furious");
-        MovieService movieService = (MovieService) injector.getInstance(MovieService.class);
+        MovieService movieService = context.getBean(MovieService.class);
         movieService.add(fastAndFurious);
 
         Movie groundhogDay = new Movie();
         groundhogDay.setTitle("Groundhog Day");
         movieService.add(groundhogDay);
 
-        CinemaHallService cinemaHallService =
-                (CinemaHallService) injector.getInstance(CinemaHallService.class);
+        CinemaHallService cinemaHallService = context.getBean(CinemaHallService.class);
         CinemaHall blueHall = new CinemaHall();
         blueHall.setCapacity(100);
         cinemaHallService.add(blueHall);
@@ -44,8 +46,7 @@ public class Main {
         groundHogDayManSession.setCinemaHall(blueHall);
         groundHogDayManSession.setMovie(groundhogDay);
         groundHogDayManSession.setShowTime(LocalDateTime.now().plusMonths(3));
-        MovieSessionService movieSessionService =
-                (MovieSessionService) injector.getInstance(MovieSessionService.class);
+        MovieSessionService movieSessionService = context.getBean(MovieSessionService.class);
         movieSessionService.add(groundHogDayManSession);
 
         MovieSession fastSession = new MovieSession();
@@ -61,8 +62,7 @@ public class Main {
 
         movieService.getAll().forEach(log::info);
 
-        AuthenticationService authenticationService =
-                (AuthenticationService) injector.getInstance(AuthenticationService.class);
+        AuthenticationService authenticationService = context.getBean(AuthenticationService.class);
         User johny = new User();
         johny.setEmail("johnydepp@amail.com");
         johny.setPassword("CaptainJackSparrow");
@@ -72,7 +72,7 @@ public class Main {
         } catch (AuthenticationException ex) {
             log.warn("Oop`s, can`t login", ex);
         }
-        UserService userService = (UserService) injector.getInstance(UserService.class);
+        UserService userService = context.getBean(UserService.class);
         log.info(userService.findByEmail(johny.getEmail()).get());
 
         User den = new User();
@@ -86,8 +86,7 @@ public class Main {
         }
         log.info(userService.findByEmail(johny.getEmail()).get());
 
-        ShoppingCartService cartService = (ShoppingCartService) injector
-                .getInstance(ShoppingCartService.class);
+        ShoppingCartService cartService = context.getBean(ShoppingCartService.class);
         log.info(cartService.getByUser(johny));
 
         cartService.addSession(fastSession, den);
@@ -99,8 +98,7 @@ public class Main {
         cartService.clear(johnyShoppingCart);
         log.info("Johny's shoppingCart :" + cartService.getByUser(johny));
 
-        OrderService orderService = (OrderService) injector
-                .getInstance(OrderService.class);
+        OrderService orderService = context.getBean(OrderService.class);
         ShoppingCart denShoppingCart = cartService.getByUser(den);
         orderService.completeOrder(denShoppingCart.getTickets(), denShoppingCart.getUser());
         log.info(orderService.getOrderHistory(denShoppingCart.getUser()));

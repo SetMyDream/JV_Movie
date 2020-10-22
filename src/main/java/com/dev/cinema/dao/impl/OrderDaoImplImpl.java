@@ -1,16 +1,21 @@
 package com.dev.cinema.dao.impl;
 
 import com.dev.cinema.dao.OrderDao;
-import com.dev.cinema.lib.Dao;
 import com.dev.cinema.models.Order;
 import com.dev.cinema.models.User;
 import com.dev.cinema.util.HibernateUtil;
 import java.util.List;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
+import org.springframework.stereotype.Repository;
 
-@Dao
-public class OrderDaoImpl implements OrderDao {
+@Repository
+public class OrderDaoImplImpl extends GenericDaoImpl<Order> implements OrderDao {
+    public OrderDaoImplImpl(SessionFactory sessionFactory) {
+        super(sessionFactory);
+    }
+
     @Override
     public List<Order> getByUser(User user) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {

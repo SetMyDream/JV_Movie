@@ -2,7 +2,6 @@ package com.dev.cinema.dao.impl;
 
 import com.dev.cinema.dao.MovieSessionDao;
 import com.dev.cinema.exceptions.DataProcessingException;
-import com.dev.cinema.lib.Dao;
 import com.dev.cinema.models.MovieSession;
 import com.dev.cinema.util.HibernateUtil;
 import java.time.LocalDate;
@@ -13,9 +12,15 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.stereotype.Repository;
 
-@Dao
-public class MovieSessionDaoImpl implements MovieSessionDao {
+@Repository
+public class MovieSessionDaoImplImpl extends GenericDaoImpl<MovieSession> implements MovieSessionDao {
+    public MovieSessionDaoImplImpl(SessionFactory sessionFactory) {
+        super(sessionFactory);
+    }
+
     @Override
     public List<MovieSession> getAll() {
         return getAll(MovieSession.class);
