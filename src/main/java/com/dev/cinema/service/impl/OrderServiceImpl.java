@@ -1,8 +1,6 @@
 package com.dev.cinema.service.impl;
 
 import com.dev.cinema.dao.OrderDao;
-import com.dev.cinema.lib.Inject;
-import com.dev.cinema.lib.Service;
 import com.dev.cinema.models.Order;
 import com.dev.cinema.models.Ticket;
 import com.dev.cinema.models.User;
@@ -10,14 +8,17 @@ import com.dev.cinema.service.OrderService;
 import com.dev.cinema.service.ShoppingCartService;
 import java.time.LocalDateTime;
 import java.util.List;
+import org.springframework.stereotype.Service;
 
 @Service
 public class OrderServiceImpl implements OrderService {
-    @Inject
     private OrderDao orderDao;
-
-    @Inject
     private ShoppingCartService shoppingCartService;
+
+    public OrderServiceImpl(OrderDao orderDao, ShoppingCartService shoppingCartService) {
+        this.orderDao = orderDao;
+        this.shoppingCartService = shoppingCartService;
+    }
 
     @Override
     public Order completeOrder(List<Ticket> tickets, User user) {

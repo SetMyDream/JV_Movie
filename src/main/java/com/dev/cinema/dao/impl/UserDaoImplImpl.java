@@ -2,7 +2,6 @@ package com.dev.cinema.dao.impl;
 
 import com.dev.cinema.dao.UserDao;
 import com.dev.cinema.exceptions.DataProcessingException;
-import com.dev.cinema.lib.Dao;
 import com.dev.cinema.models.User;
 import com.dev.cinema.util.HibernateUtil;
 import java.util.List;
@@ -12,9 +11,15 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.stereotype.Repository;
 
-@Dao
-public class UserDaoImpl implements UserDao {
+@Repository
+public class UserDaoImplImpl extends GenericDaoImpl<User> implements UserDao {
+    public UserDaoImplImpl(SessionFactory sessionFactory) {
+        super(sessionFactory);
+    }
+
     @Override
     public List<User> getAll() {
         return getAll(User.class);

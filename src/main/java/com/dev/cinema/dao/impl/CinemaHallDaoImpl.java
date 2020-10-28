@@ -1,12 +1,17 @@
 package com.dev.cinema.dao.impl;
 
 import com.dev.cinema.dao.CinemaHallDao;
-import com.dev.cinema.lib.Dao;
 import com.dev.cinema.models.CinemaHall;
 import java.util.List;
+import org.hibernate.SessionFactory;
+import org.springframework.stereotype.Repository;
 
-@Dao
-public class CinemaHallDaoImpl implements CinemaHallDao {
+@Repository
+public class CinemaHallDaoImpl extends GenericDaoImpl<CinemaHall> implements CinemaHallDao {
+    public CinemaHallDaoImpl(SessionFactory sessionFactory) {
+        super(sessionFactory);
+    }
+
     @Override
     public List<CinemaHall> getAll() {
         return getAll(CinemaHall.class);
