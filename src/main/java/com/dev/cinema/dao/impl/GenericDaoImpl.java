@@ -49,4 +49,11 @@ public abstract class GenericDaoImpl<T> implements GenericDao<T> {
             throw new DataProcessingException("Error retrieving all " + clazz.getSimpleName(), e);
         }
     }
+
+    public T get(Class<T> clazz, Long objectId) {
+        logger.info("Trying to get entity");
+        try (Session session = sessionFactory.openSession()) {
+            return session.get(clazz,objectId);
+        }
+    }
 }
