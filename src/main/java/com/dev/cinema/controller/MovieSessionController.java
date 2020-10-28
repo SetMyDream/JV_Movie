@@ -1,8 +1,8 @@
 package com.dev.cinema.controller;
 
+import com.dev.cinema.dto.MovieSessionRequestDto;
+import com.dev.cinema.dto.MovieSessionResponseDto;
 import com.dev.cinema.mapper.MovieSessionDtoMapper;
-import com.dev.cinema.mapper.MovieSessionRequestDto;
-import com.dev.cinema.mapper.MovieSessionResponseDto;
 import com.dev.cinema.service.MovieSessionService;
 import java.time.LocalDate;
 import java.util.List;

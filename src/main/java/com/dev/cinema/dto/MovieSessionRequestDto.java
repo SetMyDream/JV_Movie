@@ -1,10 +1,9 @@
-package com.dev.cinema.mapper;
+package com.dev.cinema.dto;
 
 import lombok.Data;
 
 @Data
-public class MovieSessionResponseDto {
-    private Long id;
+public class MovieSessionRequestDto {
     private Long movieId;
     private Long cinemaHallId;
     private String sessionDateTime;

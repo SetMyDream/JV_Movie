@@ -1,4 +1,4 @@
-package com.dev.cinema.mapper;
+package com.dev.cinema.dto;
 
 import lombok.Data;
 

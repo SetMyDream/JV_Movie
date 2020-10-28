@@ -1,5 +1,7 @@
 package com.dev.cinema.mapper;
 
+import com.dev.cinema.dto.MovieSessionRequestDto;
+import com.dev.cinema.dto.MovieSessionResponseDto;
 import com.dev.cinema.models.MovieSession;
 import com.dev.cinema.service.CinemaHallService;
 import com.dev.cinema.service.MovieService;
