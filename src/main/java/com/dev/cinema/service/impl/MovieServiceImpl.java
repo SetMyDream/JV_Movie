@@ -4,7 +4,9 @@ import com.dev.cinema.dao.MovieDao;
 import com.dev.cinema.models.Movie;
 import com.dev.cinema.service.MovieService;
 import java.util.List;
+import org.springframework.stereotype.Service;
 
+@Service
 public class MovieServiceImpl implements MovieService {
     private MovieDao movieDao;
 
@@ -20,5 +22,10 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public List<Movie> getAll() {
         return movieDao.getAll();
+    }
+
+    @Override
+    public Movie get(Long movieId) {
+        return movieDao.get(movieId);
     }
 }

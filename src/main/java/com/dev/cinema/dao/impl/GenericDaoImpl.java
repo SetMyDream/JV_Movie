@@ -12,7 +12,7 @@ import org.hibernate.query.Query;
 
 public abstract class GenericDaoImpl<T> implements GenericDao<T> {
     public static final Logger logger = Logger.getLogger(GenericDaoImpl.class);
-    public SessionFactory sessionFactory;
+    protected SessionFactory sessionFactory;
 
     public GenericDaoImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
@@ -47,6 +47,13 @@ public abstract class GenericDaoImpl<T> implements GenericDao<T> {
             return query.getResultList();
         } catch (Exception e) {
             throw new DataProcessingException("Error retrieving all " + clazz.getSimpleName(), e);
+        }
+    }
+
+    public T get(Class<T> clazz, Long objectId) {
+        logger.info("Trying to get entity");
+        try (Session session = sessionFactory.openSession()) {
+            return session.get(clazz,objectId);
         }
     }
 }

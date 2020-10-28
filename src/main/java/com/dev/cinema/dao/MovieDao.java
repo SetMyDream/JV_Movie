@@ -5,4 +5,6 @@ import java.util.List;
 
 public interface MovieDao extends GenericDao<Movie> {
     List<Movie> getAll();
+
+    Movie get(Long movieId);
 }

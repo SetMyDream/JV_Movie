@@ -16,4 +16,9 @@ public class CinemaHallDaoImpl extends GenericDaoImpl<CinemaHall> implements Cin
     public List<CinemaHall> getAll() {
         return getAll(CinemaHall.class);
     }
+
+    @Override
+    public CinemaHall get(Long cinemaHallId) {
+        return get(CinemaHall.class, cinemaHallId);
+    }
 }
