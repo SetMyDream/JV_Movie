@@ -12,7 +12,7 @@ import org.hibernate.query.Query;
 
 public abstract class GenericDaoImpl<T> implements GenericDao<T> {
     public static final Logger logger = Logger.getLogger(GenericDaoImpl.class);
-    public SessionFactory sessionFactory;
+    protected SessionFactory sessionFactory;
 
     public GenericDaoImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
