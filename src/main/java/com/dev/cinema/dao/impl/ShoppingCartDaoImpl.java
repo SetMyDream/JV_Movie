@@ -12,10 +12,10 @@ import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class ShoppingCartDaoImplImpl extends GenericDaoImpl<ShoppingCart>
+public class ShoppingCartDaoImpl extends GenericDaoImpl<ShoppingCart>
         implements ShoppingCartDao {
 
-    public ShoppingCartDaoImplImpl(SessionFactory sessionFactory) {
+    public ShoppingCartDaoImpl(SessionFactory sessionFactory) {
         super(sessionFactory);
     }
 
