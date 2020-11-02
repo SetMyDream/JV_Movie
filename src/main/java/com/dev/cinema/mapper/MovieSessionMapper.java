@@ -10,12 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class MovieSessionDtoMapper {
+public class MovieSessionMapper {
     private MovieService movieService;
     private CinemaHallService cinemaHallService;
 
     @Autowired
-    public MovieSessionDtoMapper(MovieService movieService, CinemaHallService cinemaHallService) {
+    public MovieSessionMapper(MovieService movieService, CinemaHallService cinemaHallService) {
         this.movieService = movieService;
         this.cinemaHallService = cinemaHallService;
     }
