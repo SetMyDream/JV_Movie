@@ -30,4 +30,9 @@ public class OrderDaoImplImpl extends GenericDaoImpl<Order> implements OrderDao 
                     + user.getEmail(), e);
         }
     }
+
+    @Override
+    public Order get(Long id) {
+        return get(Order.class, id);
+    }
 }

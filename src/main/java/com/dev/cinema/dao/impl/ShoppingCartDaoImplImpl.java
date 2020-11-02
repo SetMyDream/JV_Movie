@@ -55,4 +55,9 @@ public class ShoppingCartDaoImplImpl extends GenericDaoImpl<ShoppingCart>
             }
         }
     }
+
+    @Override
+    public ShoppingCart get(Long id) {
+        return get(ShoppingCart.class, id);
+    }
 }

@@ -38,4 +38,9 @@ public class UserDaoImplImpl extends GenericDaoImpl<User> implements UserDao {
             throw new DataProcessingException("Can`t find user by email" + email, e);
         }
     }
+
+    @Override
+    public User get(Long id) {
+        return get(User.class, id);
+    }
 }

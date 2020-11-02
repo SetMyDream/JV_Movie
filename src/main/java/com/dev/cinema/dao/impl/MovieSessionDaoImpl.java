@@ -46,4 +46,9 @@ public class MovieSessionDaoImpl extends GenericDaoImpl<MovieSession>
                     + ", date = " + date, e);
         }
     }
+
+    @Override
+    public MovieSession get(Long id) {
+        return get(MovieSession.class, id);
+    }
 }
