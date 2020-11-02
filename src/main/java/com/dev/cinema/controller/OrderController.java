@@ -26,8 +26,8 @@ public class OrderController {
     private final UserService userService;
 
     @Autowired
-    public OrderController(OrderService orderService,
-                           OrderDtoMapper orderMapper, ShoppingCartService shoppingCartService, UserService userService) {
+    public OrderController(OrderService orderService, OrderDtoMapper orderMapper,
+                           ShoppingCartService shoppingCartService, UserService userService) {
         this.orderMapper = orderMapper;
         this.orderService = orderService;
         this.shoppingCartService = shoppingCartService;
@@ -37,13 +37,14 @@ public class OrderController {
     @PostMapping("/complete")
     public void completeOrder(
             @RequestBody OrderRequestDto orderRequestDto) {
-        ShoppingCart shoppingCart = shoppingCartService.getByUser(userService.get(orderRequestDto.getId()));
+        ShoppingCart shoppingCart = shoppingCartService
+                .getByUser(userService.get(orderRequestDto.getId()));
         orderService.completeOrder(shoppingCart.getTickets(), shoppingCart.getUser());
     }
 
     @GetMapping
     public List<OrderResponseDto> getOrderHistory(@RequestParam String email) {
-        return orderService.getOrderHistory(userService.findByEmail(email).get())
+        return orderService.getOrderHistory(userService.findByEmail(email))
                 .stream()
                 .map(orderMapper::toResponseDto)
                 .collect(Collectors.toList());

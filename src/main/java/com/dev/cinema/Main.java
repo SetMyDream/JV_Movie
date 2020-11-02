@@ -73,7 +73,7 @@ public class Main {
             log.warn("Oop`s, can`t login", ex);
         }
         UserService userService = context.getBean(UserService.class);
-        log.info(userService.findByEmail(johny.getEmail()).get());
+        log.info(userService.findByEmail(johny.getEmail()));
 
         User den = new User();
         den.setEmail("den@somemail.com");
@@ -84,7 +84,7 @@ public class Main {
         } catch (AuthenticationException ex) {
             log.warn("Oop`s, can`t login", ex);
         }
-        log.info(userService.findByEmail(johny.getEmail()).get());
+        log.info(userService.findByEmail(johny.getEmail()));
 
         ShoppingCartService cartService = context.getBean(ShoppingCartService.class);
         log.info(cartService.getByUser(johny));

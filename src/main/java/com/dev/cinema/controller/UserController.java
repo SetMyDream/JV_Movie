@@ -1,6 +1,5 @@
 package com.dev.cinema.controller;
 
-
 import com.dev.cinema.dto.UserResponseDto;
 import com.dev.cinema.mapper.UserMapper;
 import com.dev.cinema.service.UserService;

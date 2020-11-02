@@ -1,14 +1,12 @@
 package com.dev.cinema.service.impl;
 
 import com.dev.cinema.dao.UserDao;
-import com.dev.cinema.exceptions.AuthenticationException;
 import com.dev.cinema.exceptions.DataProcessingException;
 import com.dev.cinema.models.User;
 import com.dev.cinema.service.UserService;
 import com.dev.cinema.util.HashUtil;
-import org.springframework.stereotype.Service;
-
 import java.util.Optional;
+import org.springframework.stereotype.Service;
 
 @Service
 public class UserServiceImpl implements UserService {

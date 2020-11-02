@@ -1,7 +1,6 @@
 package com.dev.cinema.dto;
 
 import com.dev.cinema.models.Ticket;
-
 import java.time.LocalDateTime;
 import java.util.List;
 import lombok.Data;
