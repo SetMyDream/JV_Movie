@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ShoppingCartMapper {
-    public ShoppingCartResponseDto fromResponseDto(ShoppingCart shoppingCart) {
+    public ShoppingCartResponseDto toResponseDto(ShoppingCart shoppingCart) {
         ShoppingCartResponseDto responseDto = new ShoppingCartResponseDto();
         responseDto.setTicketsId(shoppingCart.getTickets().stream()
                 .map(Ticket::getId).collect(Collectors.toList()));

@@ -1,11 +1,12 @@
 package com.dev.cinema.service;
 
 import com.dev.cinema.models.User;
+import java.util.Optional;
 
 public interface UserService {
     User add(User user);
 
-    User findByEmail(String email);
+    Optional<User> findByEmail(String email);
 
     User get(Long id);
 }

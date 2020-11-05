@@ -4,25 +4,27 @@ import com.dev.cinema.dto.OrderResponseDto;
 import com.dev.cinema.dto.OrderServiceRequestDto;
 import com.dev.cinema.models.Order;
 import com.dev.cinema.service.OrderService;
+import com.dev.cinema.service.ShoppingCartService;
 import com.dev.cinema.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class OrderDtoMapper {
+public class OrderMapper {
     private OrderService orderService;
     private UserService userService;
+    private ShoppingCartService shoppingCartService;
 
     @Autowired
-    public OrderDtoMapper(OrderService orderService, UserService userService) {
+    public OrderMapper(OrderService orderService, UserService userService) {
         this.orderService = orderService;
         this.userService = userService;
     }
 
     public Order fromRequestDto(OrderServiceRequestDto orderServiceRequestDto) {
         Order order = new Order();
-        order.setTickets(orderServiceRequestDto.getTickets());
         order.setUser(userService.get(orderServiceRequestDto.getUserId()));
+        order.setTickets(shoppingCartService.getByUser(order.getUser()).getTickets());
         orderService.completeOrder(order.getTickets(), order.getUser());
         return order;
     }

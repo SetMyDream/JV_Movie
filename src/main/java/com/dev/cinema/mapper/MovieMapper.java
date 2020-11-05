@@ -6,7 +6,7 @@ import com.dev.cinema.models.Movie;
 import org.springframework.stereotype.Component;
 
 @Component
-public class MovieDtoMapper {
+public class MovieMapper {
 
     public Movie fromRequestDto(MovieRequestDto movieRequestDto) {
         Movie movie = new Movie();

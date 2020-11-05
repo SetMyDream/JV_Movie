@@ -1,8 +1,11 @@
 package com.dev.cinema.controller;
 
 import com.dev.cinema.dto.UserResponseDto;
+import com.dev.cinema.exceptions.DataProcessingException;
 import com.dev.cinema.mapper.UserMapper;
+import com.dev.cinema.models.User;
 import com.dev.cinema.service.UserService;
+import java.util.Optional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,7 +24,12 @@ public class UserController {
 
     @GetMapping("/by-email")
     public UserResponseDto getByEmail(@RequestParam String email) {
-        return mapper.convertToResponseDto(userService
-                .findByEmail(email));
+        Optional<User> user = userService.findByEmail(email);
+        if (user.isPresent()) {
+            return mapper.convertToResponseDto(user.get());
+        } else {
+            throw new DataProcessingException("Can`t find user by email "
+                    + email);
+        }
     }
 }
