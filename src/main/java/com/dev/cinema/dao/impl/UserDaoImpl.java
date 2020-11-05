@@ -15,8 +15,8 @@ import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class UserDaoImplImpl extends GenericDaoImpl<User> implements UserDao {
-    public UserDaoImplImpl(SessionFactory sessionFactory) {
+public class UserDaoImpl extends GenericDaoImpl<User> implements UserDao {
+    public UserDaoImpl(SessionFactory sessionFactory) {
         super(sessionFactory);
     }
 
@@ -37,5 +37,10 @@ public class UserDaoImplImpl extends GenericDaoImpl<User> implements UserDao {
         } catch (Exception e) {
             throw new DataProcessingException("Can`t find user by email" + email, e);
         }
+    }
+
+    @Override
+    public User get(Long id) {
+        return get(User.class, id);
     }
 }

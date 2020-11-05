@@ -7,8 +7,8 @@ import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class MovieDaoImplImpl extends GenericDaoImpl<Movie> implements MovieDao {
-    public MovieDaoImplImpl(SessionFactory sessionFactory) {
+public class MovieDaoImpl extends GenericDaoImpl<Movie> implements MovieDao {
+    public MovieDaoImpl(SessionFactory sessionFactory) {
         super(sessionFactory);
     }
 
