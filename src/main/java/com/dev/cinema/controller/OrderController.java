@@ -1,23 +1,19 @@
 package com.dev.cinema.controller;
 
-import com.dev.cinema.dto.OrderRequestDto;
 import com.dev.cinema.dto.OrderResponseDto;
-import com.dev.cinema.exceptions.DataProcessingException;
 import com.dev.cinema.mapper.OrderMapper;
 import com.dev.cinema.models.ShoppingCart;
-import com.dev.cinema.models.User;
 import com.dev.cinema.service.OrderService;
 import com.dev.cinema.service.ShoppingCartService;
 import com.dev.cinema.service.UserService;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RequestMapping("/orders")
@@ -39,23 +35,19 @@ public class OrderController {
 
     @PostMapping("/complete")
     public void completeOrder(
-            @RequestBody OrderRequestDto orderRequestDto) {
-        ShoppingCart shoppingCart = shoppingCartService
-                .getByUser(userService.get(orderRequestDto.getUserId()));
+            Authentication authentication) {
+        UserDetails principal = (UserDetails) authentication.getPrincipal();
+        ShoppingCart shoppingCart = shoppingCartService.getByUser(userService
+                .findByEmail(principal.getUsername()).get());
         orderService.completeOrder(shoppingCart.getTickets(), shoppingCart.getUser());
     }
 
     @GetMapping
-    public List<OrderResponseDto> getOrderHistory(@RequestParam String email) {
-        Optional<User> user = userService.findByEmail(email);
-        if (user.isPresent()) {
-            return orderService.getOrderHistory(user.get())
-                    .stream()
-                    .map(orderMapper::toResponseDto)
-                    .collect(Collectors.toList());
-        } else {
-            throw new DataProcessingException("Can`t find user by email "
-                    + email);
-        }
+    public List<OrderResponseDto> getOrderHistory(Authentication authentication) {
+        UserDetails principal = (UserDetails) authentication.getPrincipal();
+        return orderService.getOrderHistory(userService.findByEmail(principal.getUsername())
+                .get()).stream()
+                .map(order -> orderMapper.toResponseDto(order))
+                .collect(Collectors.toList());
     }
 }
