@@ -10,6 +10,6 @@ public class PasswordValidator implements
     public boolean isValid(UserRequestDto userRequestDto,
                            ConstraintValidatorContext constraintValidatorContext) {
         return userRequestDto.getPassword() != null && userRequestDto.getPassword()
-                .equals(userRequestDto.getPassword());
+                .equals(userRequestDto.getRepeatPassword());
     }
 }

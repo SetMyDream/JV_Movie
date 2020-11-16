@@ -2,7 +2,6 @@ package com.dev.cinema.dto;
 
 import com.dev.cinema.annotation.EmailConstraint;
 import com.dev.cinema.annotation.PasswordConstraint;
-import java.time.LocalDateTime;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import lombok.Data;
@@ -19,5 +18,5 @@ public class UserRequestDto {
     @NotNull(message = "Repeating password must be specified")
     @Size(min = 5, message = "Repeating password has to match "
             + "password and have at least 5 characters")
-    private LocalDateTime repeatPassword;
+    private String repeatPassword;
 }
